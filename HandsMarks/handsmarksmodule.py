@@ -8,18 +8,27 @@ class HandmarksDetection():
         self.hands = self.handsMarks.Hands()
         self.handsdraw = mp.solutions.drawing_utils
     
-    def findhands(self, img):
+    def findhands(self, img, draw = True):
         imageCV2 = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
-        result = self.hands.process(imageCV2)
+        self.result = self.hands.process(imageCV2)
 
-        if result.multi_hand_landmarks:
-            for hand in result.multi_hand_landmarks:
-                for id, ln in enumerate(hand.landmark):
-                    h, w, c = img.shape
-                    cx, cy = int((ln.x*w)), int((ln.y*h))
-                    cv2.circle(img,(cx, cy), 5, (255,0,255), cv2.FILLED)
-                self.handsdraw.draw_landmarks(img, hand, self.handsMarks.HAND_CONNECTIONS)
+        if self.result.multi_hand_landmarks:
+            for hand in self.result.multi_hand_landmarks:
+                if draw:
+                    self.handsdraw.draw_landmarks(img, hand, self.handsMarks.HAND_CONNECTIONS)
         return img
+    
+    def findpositions(self, img, handNum=0, draw=True):
+        listHnad = []
+        if self.result.multi_hand_landmarks:
+            myhands = self.result.multi_hand_landmarks[handNum]
+            for id, ln in enumerate(myhands.landmark):
+                h, w, c = img.shape
+                cx, cy = int((ln.x*w)), int((ln.y*h))
+                listHnad.append([id, ln])
+                if draw:
+                    cv2.circle(img,(cx, cy), 5, (255,0,255), cv2.FILLED)
+        return listHnad
 
 def main():
     cap = cv2.VideoCapture(0)
@@ -29,6 +38,7 @@ def main():
     while True:
         sucess, img = cap.read()
         img = detected.findhands(img)
+        position = detected.findpositions(img)
         ctime = time.time()
         fps = 1/(ctime - ptime)
         ptime = ctime
