@@ -17,7 +17,11 @@ while True:
 
     if result.multi_hand_landmarks:
         for hand in result.multi_hand_landmarks:
-            handsdraw.draw_landmarks(img, hand)
+            for id, ln in enumerate(hand.landmark):
+                h, w, c = img.shape
+                cx, cy = int((ln.x*w)), int((ln.y*h))
+                cv2.circle(img,(cx, cy), 5, (255,0,255), cv2.FILLED)
+            handsdraw.draw_landmarks(img, hand, handsMarks.HAND_CONNECTIONS)
     
     ctime = time.time()
     fps = 1/(ctime - ptime)
