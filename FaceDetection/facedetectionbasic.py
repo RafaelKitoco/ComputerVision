@@ -2,7 +2,7 @@ import cv2
 import mediapipe as mp
 import time
 
-cap = cv2.VideoCapture("C:\\Users\\pc\\Desktop\\ComputerVision\\ComputerVision\\videos\\face1.mp4")
+cap = cv2.VideoCapture("C:\\Users\\pc\\Desktop\\ComputerVision\\ComputerVision\\videos\\v.mp4")
 mpFace = mp.solutions.face_detection
 Facedetection = mpFace.FaceDetection() 
 ptime = 0
@@ -23,6 +23,7 @@ else:
                   ih, iw, ic = img.shape
                   bbb = int(bbdc.xmin*iw), int(bbdc.ymin*ih), int(bbdc.width*iw), int(bbdc.height*ih)
                   cv2.rectangle(img, bbb, (255, 0, 255), 2)
+                  cv2.putText(img, f"{detection.score[0]*100}%", (bbb[0], bbb[1]-20), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
 
         ctime = time.time()
         fps = 1/(ctime- ptime)
