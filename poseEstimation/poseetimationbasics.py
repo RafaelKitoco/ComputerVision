@@ -1,7 +1,7 @@
 import cv2
 import mediapipe as mp
 
-cap = cv2.VideoCapture("C:\\Users\\pc\\Desktop\\ComputerVision\\ComputerVision\\video\\v.mp4")
+cap = cv2.VideoCapture("C:\\Users\\pc\\Desktop\\ComputerVision\\ComputerVision\\video\\v.mp4") #colocar aqui o caminho para o seu video
 postmark = mp.solutions.pose
 pose = postmark.Pose()
 drawpose = mp.solutions.drawing_utils
