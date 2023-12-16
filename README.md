@@ -1,6 +1,6 @@
 # 1. Computer Vision com Python
 Aqui tera tudo sobre computer vision detecção de mãos, face, e corpo e como mainipular. 
-![Reference Image](./img/img.png)
+![Reference Image](./imagem/img.png)
 
 a imagem pertence a **https://www.analyticsvidhya.com/blog/2021/10/human-pose-estimation-using-machine-learning-in-python/**
 ## 2. Lista do projectos 
